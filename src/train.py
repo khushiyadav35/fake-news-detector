@@ -10,7 +10,7 @@ import joblib
 import pandas as pd
 import numpy as np
 from sklearn.pipeline import Pipeline
-from sklearn.linear_model import LogisticRegression, PassiveAggressiveClassifier
+from sklearn.linear_model import LogisticRegression, SGDClassifier
 from sklearn.naive_bayes import MultinomialNB
 from sklearn.svm import LinearSVC
 from sklearn.calibration import CalibratedClassifierCV
@@ -51,15 +51,13 @@ def train_and_benchmark(data_dir: str, models_dir: str):
     candidate_classifiers = {
         "Logistic Regression": LogisticRegression(C=1.5, max_iter=1000, random_state=42),
         "Multinomial Naive Bayes": MultinomialNB(alpha=0.1),
-        "Passive-Aggressive Classifier": CalibratedClassifierCV(
-            estimator=PassiveAggressiveClassifier(max_iter=1000, random_state=42),
+        "Linear SVM (Calibrated)": CalibratedClassifierCV(
+            estimator=LinearSVC(random_state=42, max_iter=2000, dual='auto'),
             method='sigmoid',
             cv=3
         ),
-        "Linear SVM (Calibrated)": CalibratedClassifierCV(
-            estimator=LinearSVC(random_state=42, max_iter=2000),
-            method='sigmoid',
-            cv=3
+        "Passive-Aggressive (SGD)": SGDClassifier(
+            loss='log_loss', penalty='l2', alpha=1e-4, max_iter=1000, random_state=42
         )
     }
     
@@ -69,7 +67,7 @@ def train_and_benchmark(data_dir: str, models_dir: str):
     best_name = ""
     
     print("=" * 70)
-    print(" 🚀 BENCHMARKING NLP CLASSIFIERS FOR FAKE NEWS DETECTION")
+    print(" BENCHMARKING NLP CLASSIFIERS FOR FAKE NEWS DETECTION")
     print("=" * 70)
     
     for name, clf in candidate_classifiers.items():
@@ -113,12 +111,12 @@ def train_and_benchmark(data_dir: str, models_dir: str):
             best_pipeline = pipeline
             best_name = name
 
-    print(f"\n🏆 Best Selected Model: {best_name} (F1-Score: {best_f1:.4f})")
+    print(f"\nTop Selected Model: {best_name} (F1-Score: {best_f1:.4f})")
     
     # Save best pipeline
     model_path = os.path.join(models_dir, "model_pipeline.pkl")
     joblib.dump(best_pipeline, model_path)
-    print(f"💾 Saved best model pipeline to: {model_path}")
+    print(f"Saved best model pipeline to: {model_path}")
     
     # Save benchmark metrics
     metrics_path = os.path.join(models_dir, "metrics.json")
@@ -128,7 +126,7 @@ def train_and_benchmark(data_dir: str, models_dir: str):
             "benchmark_results": results,
             "classes": ["Reliable", "Suspicious"]
         }, f, indent=4)
-    print(f"📊 Saved benchmark metrics to: {metrics_path}")
+    print(f"Saved benchmark metrics to: {metrics_path}")
 
 def main():
     base_dir = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

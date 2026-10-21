@@ -1,0 +1,77 @@
+{
+    "best_model": "Logistic Regression",
+    "benchmark_results": {
+        "Logistic Regression": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1_score": 1.0,
+            "roc_auc": 1.0,
+            "confusion_matrix": [
+                [
+                    70,
+                    0
+                ],
+                [
+                    0,
+                    70
+                ]
+            ]
+        },
+        "Multinomial Naive Bayes": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1_score": 1.0,
+            "roc_auc": 1.0,
+            "confusion_matrix": [
+                [
+                    70,
+                    0
+                ],
+                [
+                    0,
+                    70
+                ]
+            ]
+        },
+        "Linear SVM (Calibrated)": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1_score": 1.0,
+            "roc_auc": 1.0,
+            "confusion_matrix": [
+                [
+                    70,
+                    0
+                ],
+                [
+                    0,
+                    70
+                ]
+            ]
+        },
+        "Passive-Aggressive (SGD)": {
+            "accuracy": 1.0,
+            "precision": 1.0,
+            "recall": 1.0,
+            "f1_score": 1.0,
+            "roc_auc": 1.0,
+            "confusion_matrix": [
+                [
+                    70,
+                    0
+                ],
+                [
+                    0,
+                    70
+                ]
+            ]
+        }
+    },
+    "classes": [
+        "Reliable",
+        "Suspicious"
+    ]
+}
