@@ -1,3 +1,15 @@
+---
+title: VeriFact Fake News & WhatsApp Misinformation Detector
+emoji: 🔍
+colorFrom: blue
+colorTo: indigo
+sdk: streamlit
+sdk_version: 1.35.0
+app_file: app/app.py
+pinned: false
+license: mit
+---
+
 # 🔍 VeriFact: WhatsApp Misinformation & Fake News Detector with Explainable AI (LIME)
 
 [![Python 3.10+](https://img.shields.io/badge/Python-3.10%2B-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://www.python.org/)
